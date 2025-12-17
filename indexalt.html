@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Tailoring System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Professional Theme */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #e9ecef;
+            --bg-accent: #f1f3f4;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --text-muted: #80868b;
+            --accent-blue: #1a73e8;
+            --accent-green: #34a853;
+            --accent-orange: #ea4335;
+            --accent-cyan: #00acc1;
+            --border-color: #dadce0;
+            --border-hover: #000000;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-hover: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .main-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-orange);
+        }
+
+        .status-dot.connected {
+            background: var(--accent-green);
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Desktop Grid Layout */
+        .desktop-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .desktop-grid > .card:nth-child(1) {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .desktop-grid > .card:nth-child(2) {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .desktop-grid > .score-grid {
+            grid-column: 1 / span 2;
+            grid-row: 2;
+        }
+
+        .desktop-grid > .card:nth-child(4) {
+            grid-column: 1 / span 2;
+            grid-row: 3;
+        }
+
+        .desktop-grid > .card:nth-child(5) {
+            grid-column: 1 / span 2;
+            grid-row: 4;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header {
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--bg-tertiary);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--border-hover);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px 8px 0 0;
+            margin-bottom: -1px;
+            overflow: hidden;
+        }
+
+        .tab-button {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-button.active {
+            background: var(--bg-primary);
+            color: var(--accent-blue);
+            border-bottom: 3px solid var(--accent-blue);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Sidebar Tabs */
+        .sidebar-tabs {
+            display: flex;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .sidebar-tab-button {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-tab-button.active {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--text-primary);
+        }
+
+        .sidebar-tab-button:hover {
+            background: var(--bg-accent);
+        }
+
+        /* Buttons */
+        .btn {
+            background: #000000;
+            color: white;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.875rem 2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .btn:hover {
+            background: #000000;
+            border-color: #000000;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            border-color: var(--accent-cyan);
+            background: var(--accent-cyan);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #00838f;
+            border-color: #00838f;
+        }
+
+        /* Score Display */
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .score-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .score-card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .score-label {
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-value {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        .score-value.original {
+            color: var(--text-secondary);
+        }
+
+        .score-value.improvement {
+            color: var(--accent-cyan);
+        }
+
+        /* Preview Box */
+        .preview-box {
+            background: var(--bg-accent);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.7;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Skills */
+        .skill-tag {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            margin: 0.2rem;
+            border-radius: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: lowercase;
+        }
+
+        .skill-match {
+            background: rgba(52, 168, 83, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .skill-gap {
+            background: rgba(234, 67, 53, 0.1);
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .skill-extra {
+            background: rgba(0, 172, 193, 0.1);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .data-table th {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.875rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .data-table td {
+            padding: 0.875rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .data-table tr:hover {
+            background: var(--bg-accent);
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: var(--accent-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Progress */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+
+        /* Expander */
+        .expander {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .expander-header {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: background-color 0.2s ease;
+        }
+
+        .expander-header:hover {
+            background: var(--bg-accent);
+        }
+
+        .expander-content {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: none;
+            background: var(--bg-primary);
+        }
+
+        .expander-content.expanded {
+            display: block;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: rgba(52, 168, 83, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .alert-error {
+            background: rgba(234, 67, 53, 0.1);
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .alert-info {
+            background: rgba(0, 172, 193, 0.1);
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .score-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem;
+            min-height: 100vh;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-header {
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--bg-tertiary);
+        }
+
+        /* Hidden elements */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- PROFESSIONAL THEME ALTERNATIVE:
+    This HTML maintains identical functionality to index.html but with a modern,
+    professional theme featuring neutral colors and clean design elements.
+    All JavaScript and API interactions remain unchanged.
+    -->
+
+    <div class="sidebar">
+        <div class="sidebar-header">System Configuration</div>
+
+        <!-- Device Selection -->
+        <div class="form-group">
+            <label class="form-label">Processing Device</label>
+            <select class="form-select" id="device-select">
+                <option value="auto">Auto (GPU if available)</option>
+                <option value="cpu">CPU Only</option>
+            </select>
+        </div>
+
+        <div class="sidebar-header">Connection Configuration</div>
+
+        <!-- Connection Type Tabs -->
+        <div class="sidebar-tabs">
+            <button class="sidebar-tab-button active" onclick="switchConnectionTab('local')">Local LLM</button>
+            <button class="sidebar-tab-button" onclick="switchConnectionTab('openai')">OpenAI Cloud</button>
+        </div>
+
+        <!-- Local LLM Settings -->
+        <div id="local-settings">
+            <div class="form-group">
+                <label class="form-label">Model Identifier</label>
+                <input type="text" class="form-input" id="local-model" placeholder="llama-3, mistral, dolphin...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Server Address</label>
+                <input type="text" class="form-input" id="local-server" value="http://localhost:1234" placeholder="http://localhost:1234">
+            </div>
+        </div>
+
+        <!-- OpenAI Settings -->
+        <div id="openai-settings" class="hidden">
+            <div class="form-group">
+                <label class="form-label">API Key</label>
+                <input type="password" class="form-input" id="openai-key" placeholder="sk-...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Model</label>
+                <select class="form-select" id="openai-model">
+                    <option value="gpt-4o-mini">GPT-4o Mini</option>
+                    <option value="gpt-4o">GPT-4o</option>
+                    <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                    <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn" id="connect-btn">CONNECT</button>
+
+        <div class="sidebar-header">Status</div>
+        <div class="status-item">
+            <div class="status-dot" id="connection-status"></div>
+            <span id="connection-text">OFFLINE</span>
+        </div>
+        <div class="status-item">
+            <div class="status-dot" id="backend-status"></div>
+            <span>Backend: Checking...</span>
+        </div>
+        <div class="status-item">
+            <div class="status-dot" id="processing-status"></div>
+            <span>Ready</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">Resume Tailoring System</h1>
+            <p class="subtitle">Optimize your resume for any position</p>
+        </header>
+
+        <div class="desktop-grid">
+            <!-- Resume Upload -->
+            <div class="card">
+                <div class="card-header">Input: Resume</div>
+                <div class="form-group">
+                    <label class="form-label">Upload PDF</label>
+                    <input type="file" class="form-input" id="resume-file" accept=".pdf">
+                </div>
+                <div id="resume-preview" class="preview-box hidden"></div>
+            </div>
+
+            <!-- Job Description -->
+            <div class="card">
+                <div class="card-header">Input: Job Description</div>
+                <div class="form-group">
+                    <label class="form-label">Job Description</label>
+                    <textarea class="form-textarea" id="job-text" placeholder="Paste the full job description here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Or Job Posting URL</label>
+                    <input type="url" class="form-input" id="job-url" placeholder="https://...">
+                </div>
+                <div id="url-preview" class="preview-box hidden"></div>
+            </div>
+
+            <!-- Generate Button -->
+            <div class="card">
+                <button class="btn" id="generate-btn" disabled>GENERATE TAILORED RESUME</button>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <!-- Scores -->
+            <div class="score-grid" id="score-grid">
+                <div class="score-card">
+                    <div class="score-label">Original Score</div>
+                    <div class="score-value original" id="original-score">--</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">Improvement</div>
+                    <div class="score-value improvement" id="improvement-score">--</div>
+                </div>
+                <div class="score-card">
+                    <div class="score-label">Optimized Score</div>
+                    <div class="score-value" id="optimized-score">--</div>
+                </div>
+            </div>
+
+            <!-- Skill Analysis -->
+            <div class="card">
+                <div class="card-header">Skill Gap Analysis</div>
+                <div class="expander">
+                    <div class="expander-header" onclick="toggleExpander('skill-stats')">
+                        <span>Analysis Summary</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="expander-content" id="skill-stats">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+                            <div><strong>Coverage:</strong> <span id="skill-coverage">--%</span></div>
+                            <div><strong>Matching:</strong> <span id="skill-matching">--</span></div>
+                            <div><strong>Missing:</strong> <span id="skill-missing">--</span></div>
+                            <div><strong>Additional:</strong> <span id="skill-extra">--</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="expander">
+                    <div class="expander-header" onclick="toggleExpander('skill-breakdown')">
+                        <span>Skills Breakdown</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="expander-content" id="skill-breakdown">
+                        <div><strong>Matching Skills:</strong> <div id="matching-skills">No matching skills analyzed yet...</div></div>
+                        <div><strong>Your Additional Skills:</strong> <div id="extra-skills">No additional skills analyzed yet...</div></div>
+                    </div>
+                </div>
+                <div class="expander">
+                    <div class="expander-header" onclick="toggleExpander('skill-gaps')">
+                        <span>Missing Skills - Action Plan</span>
+                        <span>▼</span>
+                    </div>
+                    <div class="expander-content" id="skill-gaps">
+                        <div id="skill-gap-table">Skill gap analysis and learning recommendations will appear here...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tailored Resume & Cover Letter -->
+            <div class="card">
+                <div class="card-header">Output: Resume & Cover Letter</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">Tailored Resume</h4>
+                        <div class="preview-box" id="tailored-resume" style="height: 300px;">Tailored resume will appear here after processing...</div>
+                        <button class="btn btn-secondary" id="download-resume-btn" disabled style="margin-top: 0.5rem;">DOWNLOAD DOCX</button>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-secondary);">Cover Letter <span style="background: rgba(0, 172, 193, 0.1); border: 1px solid var(--accent-cyan); color: var(--accent-cyan); padding: 0.1rem 0.3rem; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">Optional</span></h4>
+                        <div class="form-group" style="margin-bottom: 0.5rem;">
+                            <select class="form-select" id="cover-tone">
+                                <option value="professional">Professional</option>
+                                <option value="creative">Creative</option>
+                                <option value="concise">Concise</option>
+                            </select>
+                        </div>
+                        <button class="btn" id="generate-cover-btn" style="margin-bottom: 0.5rem;">GENERATE COVER LETTER</button>
+                        <div class="preview-box" id="cover-letter" style="height: 200px;">Cover letter will appear here after generation...</div>
+                        <button class="btn btn-secondary" id="download-cover-btn" disabled style="margin-top: 0.5rem;">DOWNLOAD COVER LETTER</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Alerts -->
+        <div id="alerts"></div>
+    </div>
+
+    <script>
+        // Global state
+        let isConnected = false;
+        let resumeFile = null;
+        let jobData = null;
+        let results = null;
+
+        // Global state
+        let currentConnectionType = 'local'; // Default to local
+
+        // DOM elements
+        const connectBtn = document.getElementById('connect-btn');
+        const connectionStatus = document.getElementById('connection-status');
+        const connectionText = document.getElementById('connection-text');
+        const backendStatus = document.getElementById('backend-status');
+        const processingStatus = document.getElementById('processing-status');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultsSection = document.getElementById('results-section');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkBackendHealth();
+            setupEventListeners();
+        });
+
+        // Event listeners
+        function setupEventListeners() {
+            connectBtn.addEventListener('click', connectLLM);
+            document.getElementById('resume-file').addEventListener('change', handleResumeUpload);
+            document.getElementById('job-url').addEventListener('input', handleJobUrlInput);
+            document.getElementById('generate-btn').addEventListener('click', generateResume);
+            document.getElementById('generate-cover-btn').addEventListener('click', generateCoverLetter);
+            document.getElementById('download-resume-btn').addEventListener('click', downloadResume);
+            document.getElementById('download-cover-btn').addEventListener('click', downloadCoverLetter);
+        }
+
+        // Backend health check
+        async function checkBackendHealth() {
+            try {
+                const response = await fetch('http://localhost:8000/health');
+                const data = await response.json();
+
+                if (response.ok && data.status === 'healthy') {
+                    backendStatus.classList.add('connected');
+                    backendStatus.parentElement.querySelector('span').textContent = 'Backend: Online';
+                } else {
+                    backendStatus.classList.remove('connected');
+                    backendStatus.parentElement.querySelector('span').textContent = 'Backend: Offline';
+                }
+            } catch (error) {
+                backendStatus.classList.remove('connected');
+                backendStatus.parentElement.querySelector('span').textContent = 'Backend: Error';
+                showAlert('Backend connection failed. Make sure the Python server is running.', 'error');
+            }
+        }
+
+        // Connection tab switching
+        function switchConnectionTab(type) {
+            currentConnectionType = type;
+
+            // Update tab buttons
+            document.querySelectorAll('.sidebar-tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Show/hide settings
+            document.getElementById('local-settings').classList.toggle('hidden', type !== 'local');
+            document.getElementById('openai-settings').classList.toggle('hidden', type !== 'openai');
+        }
+
+        // LLM connection
+        async function connectLLM() {
+            const type = currentConnectionType;
+            let payload = {};
+
+            if (type === 'local') {
+                payload = {
+                    type: 'local',
+                    model: document.getElementById('local-model').value,
+                    server: document.getElementById('local-server').value
+                };
+            } else {
+                payload = {
+                    type: 'openai',
+                    api_key: document.getElementById('openai-key').value,
+                    model: document.getElementById('openai-model').value
+                };
+            }
+
+            try {
+                setLoading(connectBtn, true);
+                const response = await fetch('http://localhost:8000/connect', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    isConnected = true;
+                    connectionStatus.classList.add('connected');
+                    connectionText.textContent = `ONLINE: ${data.info}`;
+                    generateBtn.disabled = false;
+                    showAlert('Connected successfully!', 'success');
+                } else {
+                    throw new Error(data.error || 'Connection failed');
+                }
+            } catch (error) {
+                isConnected = false;
+                connectionStatus.classList.remove('connected');
+                connectionText.textContent = 'OFFLINE';
+                generateBtn.disabled = true;
+                showAlert(`Connection failed: ${error.message}`, 'error');
+            } finally {
+                setLoading(connectBtn, false);
+            }
+        }
+
+        // Resume upload handling
+        function handleResumeUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                resumeFile = file;
+                showAlert('Resume uploaded successfully!', 'success');
+
+                // Preview (basic filename for now)
+                const preview = document.getElementById('resume-preview');
+                preview.textContent = `File: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+                preview.classList.remove('hidden');
+            } else {
+                showAlert('Please select a valid PDF file.', 'error');
+            }
+        }
+
+        // Job URL handling
+        async function handleJobUrlInput() {
+            const url = document.getElementById('job-url').value.trim();
+            if (!url) return;
+
+            try {
+                const response = await fetch('http://localhost:8000/fetch-job-description', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    const preview = document.getElementById('url-preview');
+                    preview.textContent = data.text.substring(0, 1000) + '...';
+                    preview.classList.remove('hidden');
+                    showAlert('Job description fetched successfully!', 'success');
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showAlert(`Failed to fetch URL: ${error.message}`, 'error');
+            }
+        }
+
+
+        // Generate resume
+        async function generateResume() {
+            if (!resumeFile || !getJobData()) {
+                showAlert('Please upload a resume and provide job description.', 'error');
+                return;
+            }
+
+            try {
+                setLoading(generateBtn, true);
+                setProgress(10);
+
+                // Prepare form data
+                const formData = new FormData();
+                formData.append('resume', resumeFile);
+                formData.append('job_data', JSON.stringify(getJobData()));
+
+                setProgress(30);
+
+                const response = await fetch('http://localhost:8000/generate-resume', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                setProgress(80);
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    results = data;
+                    displayResults(data);
+                    setProgress(100);
+                    showAlert('Resume generated successfully!', 'success');
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showAlert(`Generation failed: ${error.message}`, 'error');
+                setProgress(0);
+            } finally {
+                setLoading(generateBtn, false);
+            }
+        }
+
+        // Generate cover letter
+        async function generateCoverLetter() {
+            if (!results) {
+                showAlert('Please generate a resume first.', 'error');
+                return;
+            }
+
+            const tone = document.getElementById('cover-tone').value;
+
+            try {
+                setLoading(document.getElementById('generate-cover-btn'), true);
+
+                const response = await fetch('http://localhost:8000/generate-cover-letter', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        resume_text: results.resume_text,
+                        tailored_resume: results.tailored_resume,
+                        job_text: results.job_text,
+                        keywords: results.keywords,
+                        tone: tone
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayCoverLetter(data.cover_letter);
+                    showAlert('Cover letter generated successfully!', 'success');
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showAlert(`Cover letter generation failed: ${error.message}`, 'error');
+            } finally {
+                setLoading(document.getElementById('generate-cover-btn'), false);
+            }
+        }
+
+        // Download functions
+        async function downloadResume() {
+            if (!results) {
+                showAlert('Please generate a resume first.', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:8000/download-resume', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename: results.filename })
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    downloadBlob(blob, results.filename || 'tailored_resume.docx');
+                } else {
+                    throw new Error('Download failed');
+                }
+            } catch (error) {
+                showAlert(`Download failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function downloadCoverLetter() {
+            try {
+                const response = await fetch('http://localhost:8000/download-cover-letter', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ filename: 'cover_letter.docx' })
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    downloadBlob(blob, 'cover_letter.docx');
+                } else {
+                    throw new Error('Download failed');
+                }
+            } catch (error) {
+                showAlert(`Download failed: ${error.message}`, 'error');
+            }
+        }
+
+        // Helper functions
+        function getJobData() {
+            const pasteText = document.getElementById('job-text').value.trim();
+            const urlText = document.getElementById('url-preview').textContent.replace('...', '').trim();
+
+            // Prioritize pasted text, then URL content
+            if (pasteText) return { type: 'text', content: pasteText };
+            if (urlText) return { type: 'url', content: urlText };
+            return null;
+        }
+
+        function displayResults(data) {
+            // Scores
+            document.getElementById('original-score').textContent = data.original_score;
+            document.getElementById('improvement-score').textContent = `+${data.improvement}`;
+            document.getElementById('optimized-score').textContent = data.optimized_score;
+
+            // Skill analysis
+            const gap = data.skill_analysis;
+            document.getElementById('skill-coverage').textContent = `${gap.coverage_score}%`;
+            document.getElementById('skill-matching').textContent = gap.matching_skills.length;
+            document.getElementById('skill-missing').textContent = gap.missing_skills.length;
+            document.getElementById('skill-extra').textContent = gap.extra_skills.length;
+
+            // Skills display
+            displaySkills('matching-skills', gap.matching_skills, 'skill-match');
+            displaySkills('extra-skills', gap.extra_skills, 'skill-extra');
+
+            // Skill gaps table
+            displaySkillGaps(gap.gap_analysis);
+
+            // Tailored resume
+            document.getElementById('tailored-resume').textContent = data.tailored_resume;
+        }
+
+        function displaySkills(containerId, skills, className) {
+            const container = document.getElementById(containerId);
+            if (skills.length > 0) {
+                container.innerHTML = skills.map(skill =>
+                    `<span class="skill-tag ${className}">${skill}</span>`
+                ).join('');
+            } else {
+                container.textContent = 'No skills to display yet...';
+            }
+        }
+
+        function displaySkillGaps(gaps) {
+            const container = document.getElementById('skill-gap-table');
+
+            if (gaps.length === 0) {
+                container.innerHTML = '<p>No skill gaps identified yet. Generate a resume to see recommendations.</p>';
+                return;
+            }
+
+            let html = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Priority</th>
+                            <th>Category</th>
+                            <th>Suggested Action</th>
+                            <th>Learn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            gaps.forEach(gap => {
+                const priorityClass = `priority-${gap.priority.toLowerCase()}`;
+                html += `
+                    <tr>
+                        <td><span class="skill-tag skill-gap">${gap.skill}</span></td>
+                        <td><span class="${priorityClass}">${gap.priority.toUpperCase()}</span></td>
+                        <td>${gap.category.replace('_', ' ').title()}</td>
+                        <td>${gap.suggestion.substring(0, 80)}...</td>
+                        <td><a href="${gap.learning_url}" target="_blank" style="color: var(--accent-cyan);">Learn</a></td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function displayCoverLetter(coverLetter) {
+            const container = document.getElementById('cover-letter');
+            container.textContent = coverLetter;
+            document.getElementById('download-cover-btn').disabled = false;
+        }
+
+        function toggleExpander(id) {
+            const content = document.getElementById(id);
+            const header = content.previousElementSibling;
+            const arrow = header.querySelector('span:last-child');
+
+            content.classList.toggle('expanded');
+
+            if (content.classList.contains('expanded')) {
+                arrow.textContent = '▲';
+            } else {
+                arrow.textContent = '▼';
+            }
+        }
+
+        function setLoading(button, loading) {
+            if (loading) {
+                button.disabled = true;
+                button.innerHTML = '<div class="loading"></div> Processing...';
+            } else {
+                button.disabled = false;
+                button.innerHTML = button.id === 'connect-btn' ? 'CONNECT' :
+                                   button.id === 'generate-btn' ? 'GENERATE TAILORED RESUME' :
+                                   button.id === 'generate-cover-btn' ? 'GENERATE COVER LETTER' :
+                                   'DOWNLOAD';
+            }
+        }
+
+        function setProgress(percent) {
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+        }
+
+        function showAlert(message, type) {
+            const alerts = document.getElementById('alerts');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+
+            alerts.appendChild(alert);
+
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        function downloadBlob(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
